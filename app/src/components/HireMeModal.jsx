@@ -29,7 +29,6 @@ const HireMeModal = ({ onClose, onRequest }) => {
 			console.log(response);
 			if(response.data.success){
 				toast.success(response.data.message)
-				
 				onClose()
 			}else{
 				toast.error(response.data.message)

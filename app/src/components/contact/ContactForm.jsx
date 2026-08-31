@@ -2,7 +2,7 @@ import Button from '../reusable/Button';
 import FormInput from '../reusable/FormInput';
 import {toast} from 'react-hot-toast'
 import axios from 'axios'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const ContactForm = () => {
 	const [name,setName]=useState("")

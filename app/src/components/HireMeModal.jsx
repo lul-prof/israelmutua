@@ -24,9 +24,7 @@ const HireMeModal = ({ onClose, onRequest }) => {
 
 	const handleSubmit=async(e)=>{
 		e.preventDefault()
-		
 		try {
-			
 			const response=await axios.post(`${backend_url}/api/message/send`,{email,name,subject,message})
 			console.log(response);
 			if(response.data.success){

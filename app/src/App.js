@@ -5,6 +5,7 @@ import ScrollToTop from './components/ScrollToTop';
 import AppFooter from './components/shared/AppFooter';
 import AppHeader from './components/shared/AppHeader';
 import './css/App.css';
+import {Toaster} from 'react-hot-toast'
 import UseScrollToTop from './hooks/useScrollToTop';
 
 const About = lazy(() => import('./pages/AboutMe'));
@@ -19,10 +20,10 @@ function App() {
 		<AnimatePresence>
 			<div className=" bg-secondary-light dark:bg-primary-dark transition duration-300">
 				<Router>
+					<Toaster/>
 					<ScrollToTop />
 					<AppHeader />
 					<Suspense fallback={""}>
-						
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="projects" element={<Projects />} />

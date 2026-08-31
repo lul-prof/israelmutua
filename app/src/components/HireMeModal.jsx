@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
 import Button from './reusable/Button';
+import { useState } from 'react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const selectOptions = [
 	'Web Application',
@@ -10,6 +13,37 @@ const selectOptions = [
 ];
 
 const HireMeModal = ({ onClose, onRequest }) => {
+
+	const [name,setName]=useState("")
+	const [email,setEmail]=useState("")
+	const [subject,setSubject]=useState("")
+	const [message,setMessage]=useState("")
+	const [loading,setLoading]=useState(false)
+
+	const backend_url=process.env.REACT_APP_BACKEND_URL
+
+	const handleSubmit=async(e)=>{
+		e.preventDefault()
+		
+		try {
+			setLoading(true)
+			const response=await axios.post(`${backend_url}/api/message/send`,{email,name,subject,message})
+			console.log(response);
+			if(response.data.success){
+				toast.success(response.data.message)
+				setLoading(false)
+				onClose()
+			}else{
+				toast.error(response.data.message)
+				setLoading(false)
+			}
+		} catch (error) {
+			console.log(error.message);
+			toast.error(error.message)
+		}finally{
+			setLoading(false)
+		}
+	}
 	return (
 		<motion.div
 			initial={{ opacity: 0 }}
@@ -37,9 +71,7 @@ const HireMeModal = ({ onClose, onRequest }) => {
 						</div>
 						<div className="modal-body p-5 w-full h-full">
 							<form
-								onSubmit={(e) => {
-									e.preventDefault();
-								}}
+								onSubmit={handleSubmit}
 								className="max-w-xl m-4 text-left"
 							>
 								<div className="">
@@ -51,6 +83,8 @@ const HireMeModal = ({ onClose, onRequest }) => {
 										required=""
 										placeholder="Name"
 										aria-label="Name"
+										value={name}
+										onChange={(e)=>(setName(e.target.value))}
 									/>
 								</div>
 								<div className="mt-6">
@@ -62,6 +96,8 @@ const HireMeModal = ({ onClose, onRequest }) => {
 										required=""
 										placeholder="Email"
 										aria-label="Email"
+										value={email}
+										onChange={(e)=>(setEmail(e.target.value))}
 									/>
 								</div>
 								<div className="mt-6">
@@ -72,6 +108,8 @@ const HireMeModal = ({ onClose, onRequest }) => {
 										type="text"
 										required=""
 										aria-label="Project Category"
+										value={subject}
+										onChange={(e)=>(setSubject(e.target.value))}
 									>
 										{selectOptions.map((option) => (
 											<option
@@ -93,12 +131,13 @@ const HireMeModal = ({ onClose, onRequest }) => {
 										rows="6"
 										aria-label="Details"
 										placeholder="Project description"
+										value={message}
+										onChange={(e)=>(setMessage(e.target.value))}
 									></textarea>
 								</div>
 
 								<div className="mt-6 pb-4 sm:pb-1">
 									<span
-										onClick={onClose}
 										type="submit"
 										className="px-4
 											sm:px-6

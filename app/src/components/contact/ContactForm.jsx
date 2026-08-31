@@ -1,10 +1,45 @@
 import Button from '../reusable/Button';
 import FormInput from '../reusable/FormInput';
+import {toast} from 'react-hot-toast'
+import axios from 'axios'
+import { useEffect, useState } from 'react';
 
 const ContactForm = () => {
-	const handleSubmit=(e)=>{
+	const [name,setName]=useState("")
+	const [email,setEmail]=useState("")
+	const [subject,setSubject]=useState("")
+	const [message,setMessage]=useState("")
+	const [loading,setLoading]=useState(false)
+
+	
+
+	const backend_url=process.env.REACT_APP_BACKEND_URL
+
+	const handleSubmit=async(e)=>{
 		e.preventDefault()
+		
+		try {
+			setLoading(true)
+			const response=await axios.post(`${backend_url}/api/message/send`,{email,name,subject,message})
+			console.log(response);
+			if(response.data.success){
+				toast.success(response.data.message)
+				setLoading(false)
+			}else{
+				toast.error(response.data.message)
+				setLoading(false)
+			}
+		} catch (error) {
+			console.log(error.message);
+			toast.error(error.message)
+		}finally{
+			setLoading(false)
+		}
 	}
+	useState(()=>{
+		console.log(backend_url);
+		
+	},[])
 	return (
 		<div className="w-full lg:w-1/2">
 			<div className="leading-loose">
@@ -23,6 +58,8 @@ const ContactForm = () => {
 						inputName="name"
 						placeholderText="Your Name"
 						ariaLabelName="Name"
+						OnChange={(e)=>(setName(e.target.value))}
+						value={name}
 					/>
 					<FormInput
 						inputLabel="Email"
@@ -32,6 +69,8 @@ const ContactForm = () => {
 						inputName="email"
 						placeholderText="Your email"
 						ariaLabelName="Email"
+						OnChange={(e)=>(setEmail(e.target.value))}
+						value={email}
 					/>
 					<FormInput
 						inputLabel="Subject"
@@ -41,6 +80,8 @@ const ContactForm = () => {
 						inputName="subject"
 						placeholderText="Subject"
 						ariaLabelName="Subject"
+						OnChange={(e)=>(setSubject(e.target.value))}
+						value={subject}
 					/>
 
 					<div className="mt-6">
@@ -57,15 +98,16 @@ const ContactForm = () => {
 							cols="14"
 							rows="6"
 							aria-label="Message"
+							onChange={(e)=>(setMessage(e.target.value))}
+							value={message}
 						></textarea>
 					</div>
 
 					<div className="font-general-medium w-40 px-4 py-2.5 text-white text-center font-medium tracking-wider bg-indigo-500 hover:bg-indigo-600 focus:ring-1 focus:ring-indigo-900 rounded-lg mt-6 duration-500">
 						<Button
-							title="Send Message"
+							title={loading?"Sending...":"Send Message"}
 							type="submit"
-							aria-label="Send Message"
-						/>
+							aria-label={loading?"Sending...":"Send Message"}						/>
 					</div>
 				</form>
 			</div>

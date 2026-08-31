@@ -47,9 +47,9 @@ const AppHeader = () => {
 					<div>
 						<Link to="/">
 							{activeTheme === 'dark' ? (
-								<h2 className='block text-left text-lg text-primary-dark dark:text-ternary-light hover:text-secondary-dark dark:hover:text-secondary-light  sm:mx-4 mb-2 sm:py-2'>ISRAEL</h2>
+								<h2 className='text-lg text-primary-dark dark:text-ternary-light hover:text-secondary-dark dark:hover:text-secondary-light'>ISRAEL</h2>
 							) : (
-								<h2 className='block text-left text-lg text-primary-dark dark:text-ternary-light hover:text-secondary-dark dark:hover:text-secondary-light  sm:mx-4 mb-2 sm:py-2'>ISRAEL</h2>
+								<h2 className='text-lg text-primary-dark dark:text-ternary-light hover:text-secondary-dark dark:hover:text-secondary-light'>ISRAEL</h2>
 							)}
 						</Link>
 					</div>

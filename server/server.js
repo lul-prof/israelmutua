@@ -11,7 +11,7 @@ const port=process.env.PORT
 
 //Middleware
 app.use(morgan('dev'))
-app.use(cors({origin:'https://israelmutua.vercel.app',allowedHeaders:['Content-Type', 'Authorization'],methods:['GET','POST','PUT','DELETE'],credentials:true}))
+app.use(cors({origin:'https://israelmutua.vercel.app/contact',allowedHeaders:['Content-Type', 'Authorization'],methods:['GET','POST','PUT','DELETE'],credentials:true}))
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 

@@ -36,10 +36,7 @@ const ContactForm = () => {
 			setLoading(false)
 		}
 	}
-	useState(()=>{
-		console.log(backend_url);
-		
-	},[])
+	
 	return (
 		<div className="w-full lg:w-1/2">
 			<div className="leading-loose">

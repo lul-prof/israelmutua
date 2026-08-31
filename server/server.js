@@ -1,13 +1,17 @@
 import express from "express"
 import dotenv from "dotenv"
 import morgan from "morgan"
+import cors from "cors"
 import messageRouter from "./routes/messageRoute.js"
 
 //configurations
 dotenv.config()
 const app=express()
 const port=process.env.PORT
+
+//Middleware
 app.use(morgan('dev'))
+app.use(cors({origin:'*'}))
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 

@@ -18,7 +18,7 @@ const HireMeModal = ({ onClose, onRequest }) => {
 	const [email,setEmail]=useState("")
 	const [subject,setSubject]=useState("")
 	const [message,setMessage]=useState("")
-	const [loading,setLoading]=useState(false)
+	
 
 	const backend_url=process.env.REACT_APP_BACKEND_URL
 
@@ -26,22 +26,20 @@ const HireMeModal = ({ onClose, onRequest }) => {
 		e.preventDefault()
 		
 		try {
-			setLoading(true)
+			
 			const response=await axios.post(`${backend_url}/api/message/send`,{email,name,subject,message})
 			console.log(response);
 			if(response.data.success){
 				toast.success(response.data.message)
-				setLoading(false)
+				
 				onClose()
 			}else{
 				toast.error(response.data.message)
-				setLoading(false)
+				
 			}
 		} catch (error) {
 			console.log(error.message);
 			toast.error(error.message)
-		}finally{
-			setLoading(false)
 		}
 	}
 	return (

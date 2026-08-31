@@ -4,6 +4,8 @@ import nodemailer from 'nodemailer'
 const sendMessage=async(req,res)=>{
     try {
         const { email, name,subject, message } = req.body;
+        console.log(email,name,subject,message);
+        
 
         const transporter = nodemailer.createTransport({
         secure: true,

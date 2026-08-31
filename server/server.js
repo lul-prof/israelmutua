@@ -11,7 +11,7 @@ const port=process.env.PORT
 
 //Middleware
 app.use(morgan('dev'))
-app.use(cors({origin:'*'}))
+app.use(cors({origin:'https://israelmutua.onrender.com',methods:['GET','POST','PUT','DELETE']}))
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
 

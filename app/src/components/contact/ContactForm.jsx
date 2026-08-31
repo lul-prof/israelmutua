@@ -20,7 +20,7 @@ const ContactForm = () => {
 		
 		try {
 			setLoading(true)
-			const response=await axios.post(`${backend_url}/api/message/send`,{email,name,subject,message})
+			const response=await axios.post(`${backend_url}/api/message/send`,{email,name,subject,message},{})
 			console.log(response);
 			if(response.data.success){
 				toast.success(response.data.message)
